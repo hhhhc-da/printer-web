@@ -1,0 +1,92 @@
+﻿using System;
+using System.Drawing;
+using System.Drawing.Printing;
+using System.IO;
+
+namespace Printer
+{
+    internal class Program
+    {
+        static string printerName = string.Empty;
+        static string filename = string.Empty;
+        static string filetype = string.Empty;
+        static int copies = 1;
+        static bool duplex = false;
+
+        static void Main(string[] args)
+        {
+            // Parse command line arguments
+            for (int i = 0; i < args.Length; i++)
+            {
+                switch (args[i])
+                {
+                    case "--printer":
+                        if (i + 1 < args.Length) printerName = args[++i];
+                        break;
+                    case "--filename":
+                        if (i + 1 < args.Length) filename = args[++i];
+                        break;
+                    case "--filetype":
+                        if (i + 1 < args.Length) filetype = args[++i];
+                        break;
+                    case "--copies":
+                        if (i + 1 < args.Length && int.TryParse(args[++i], out int c)) copies = c;
+                        break;
+                    case "--duplex":
+                        if (i + 1 < args.Length && int.TryParse(args[++i], out int d)) duplex = d != 0;
+                        break;
+                }
+            }
+
+            if (string.IsNullOrEmpty(printerName) || string.IsNullOrEmpty(filename) || string.IsNullOrEmpty(filetype))
+            {
+                Console.WriteLine("Missing required arguments.");
+                Console.WriteLine("Usage: printer_controller.exe --printer <name> --filename <path> --filetype <type> --copies <n> --duplex <0|1>");
+                return;
+            }
+
+            if (!File.Exists(filename))
+            {
+                Console.WriteLine($"File not found: {filename}");
+                return;
+            }
+
+            if (filetype.ToLower() == "image")
+            {
+                PrintImage(filename);
+            }
+            else
+            {
+                Console.WriteLine($"Unsupported filetype: {filetype}");
+            }
+        }
+
+        static void PrintImage(string path)
+        {
+            PrintDocument pd = new PrintDocument();
+            pd.PrinterSettings.PrinterName = printerName;
+            pd.PrinterSettings.Copies = (short)copies;
+            pd.PrinterSettings.Duplex = duplex ? Duplex.Vertical : Duplex.Simplex;
+            Image img = Image.FromFile(path);
+            pd.PrintPage += (sender, e) =>
+            {
+                // Fit image to page
+                Rectangle m = e.MarginBounds;
+                e.Graphics.DrawImage(img, m);
+            };
+            try
+            {
+                pd.Print();
+                Console.WriteLine("Print job sent.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Print failed: {ex.Message}");
+            }
+            finally
+            {
+                img.Dispose();
+            }
+        }
+    }
+}

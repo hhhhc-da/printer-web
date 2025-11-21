@@ -1,0 +1,7 @@
+D:\Code\C#\Printer\obj\Debug\Printer.csproj.AssemblyReference.cache
+D:\Code\C#\Printer\obj\Debug\Printer.csproj.CoreCompileInputs.cache
+D:\Code\C#\Printer\bin\Debug\Printer.exe.config
+D:\Code\C#\Printer\bin\Debug\Printer.exe
+D:\Code\C#\Printer\bin\Debug\Printer.pdb
+D:\Code\C#\Printer\obj\Debug\Printer.exe
+D:\Code\C#\Printer\obj\Debug\Printer.pdb

@@ -1,0 +1,14 @@
+D:\Code\C#\Printer\bin\Release\Printer.exe.config
+D:\Code\C#\Printer\bin\Release\Printer.exe
+D:\Code\C#\Printer\bin\Release\Printer.pdb
+D:\Code\C#\Printer\obj\Release\Printer.csproj.AssemblyReference.cache
+D:\Code\C#\Printer\obj\Release\Printer.csproj.CoreCompileInputs.cache
+D:\Code\C#\Printer\obj\Release\Printer.exe
+D:\Code\C#\Printer\obj\Release\Printer.pdb
+D:\Code\C#\Printer\obj\Release\Printer.csproj.Up2Date
+D:\Code\C#\Printer\bin\Release\YamlDotNet.dll
+D:\Code\C#\Printer\bin\Release\YamlDotNet.xml
+D:\Code\C#\Printer\bin\Release\Printer.exe.manifest
+D:\Code\C#\Printer\bin\Release\Printer.application
+D:\Code\C#\Printer\obj\Release\Printer.exe.manifest
+D:\Code\C#\Printer\obj\Release\Printer.application

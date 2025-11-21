@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="Printer.exe" version="1.0.0.0" publicKeyToken="7f8915cdb29aa72d" language="neutral" processorArchitecture="msil" type="win32" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="Printer" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="Printer.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC 清单选项
+          如果要更改 Windows 用户帐户控制级别，请用以下节点之一替换
+          requestedExecutionLevel 节点。
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+          如果要利用文件和注册表虚拟化提供
+          向后兼容性，请删除 requestedExecutionLevel 节点。
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Printer.exe" size="11792">
+      <assemblyIdentity name="Printer" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>RY5FyiD5EQJJseF29l3PJKb+wSlk7xLNeo87hBesNO0=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="YamlDotNet.dll" size="291840">
+      <assemblyIdentity name="YamlDotNet" version="16.0.0.0" publicKeyToken="EC19458F3C15AF5E" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>kXLwdY7XaWPg7eO1ypoftbgvZMfnqSyzpt4576kzpmg=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="Printer.exe.config" size="1362">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>7Z1HLbA7Xg9+rNc8fIgBNvcYZzZOX9AnZwUWKPrlMxI=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=WIN-JLF357BE2PH\Administrator" issuerKeyHash="7fd70a62f549ad42e0ecfbb15b5a0bf7e6c6cf42" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>ByZSCBIHZyH1CmTcEi9qxV9Y08bFrm3ayxVYvb9LS6U=</DigestValue></Reference></SignedInfo><SignatureValue>O3HKfy9HigvTc8UxF90JIHMlzsBkhhcL3bs6I1fEtyUwn2acRswIFSYqbCdP+EwtnzLg2O3wqEvR24e/l2+H1VtENwNZgQpGNd3A1eohauFlfd5LNd7to6Vje+VwHjB9GorzPSh4Kj30zwT0fyw/pxLQHw2mGLlHUZO3fSw9xTo=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>0Q5aEWY+AjvI0FyWiKjZUODN6NzUJvify76u6FLVbbbvXEHap06Wja/6TzihhDPsGfiPIr7skm937+hD65epHrrAMNRe0ofdFyNVVZdNmH/We58m0zJaT34jtscYuFh+PlDU1jyun1CoY+3j2Iqy/ox/g/LSJTX0EzOekh1wIV0=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="a54b4bbfbd5815cbda6daec5c6d3585fc56a2f12dc640af52167071208522607" Description="" Url=""><as:assemblyIdentity name="Printer.exe" version="1.0.0.0" publicKeyToken="7f8915cdb29aa72d" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=WIN-JLF357BE2PH\Administrator</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>mzWIAo9x/AfI5oS3KKS4ME4iAQWjmD9QcUYbH9YZw+g=</DigestValue></Reference></SignedInfo><SignatureValue>rVJjhAb7uorpQydsVDmX44AY8Y1f7qJdbHKcW6fM5Qjuy7+qW+O3EgrZ2o7pKNZwyVoLboS2kfCjKKbG9tRymzmQCckw51PbVe4xNE6051VaD3PSP1skVglVsw6CYg4nRUR1H1BgxJEG+ECqkWTcqE/bo3Mob33MSRKd8keYxow=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>0Q5aEWY+AjvI0FyWiKjZUODN6NzUJvify76u6FLVbbbvXEHap06Wja/6TzihhDPsGfiPIr7skm937+hD65epHrrAMNRe0ofdFyNVVZdNmH/We58m0zJaT34jtscYuFh+PlDU1jyun1CoY+3j2Iqy/ox/g/LSJTX0EzOekh1wIV0=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIICDTCCAXagAwIBAgIQM4klXqaB67dOpBhJHRun6TANBgkqhkiG9w0BAQsFADBFMUMwQQYDVQQDHjoAVwBJAE4ALQBKAEwARgAzADUANwBCAEUAMgBQAEgAXABBAGQAbQBpAG4AaQBzAHQAcgBhAHQAbwByMB4XDTI1MTExODExNDM1NVoXDTI2MTExODE3NDM1NVowRTFDMEEGA1UEAx46AFcASQBOAC0ASgBMAEYAMwA1ADcAQgBFADIAUABIAFwAQQBkAG0AaQBuAGkAcwB0AHIAYQB0AG8AcjCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEA0Q5aEWY+AjvI0FyWiKjZUODN6NzUJvify76u6FLVbbbvXEHap06Wja/6TzihhDPsGfiPIr7skm937+hD65epHrrAMNRe0ofdFyNVVZdNmH/We58m0zJaT34jtscYuFh+PlDU1jyun1CoY+3j2Iqy/ox/g/LSJTX0EzOekh1wIV0CAwEAATANBgkqhkiG9w0BAQsFAAOBgQBOwFZ5GJRcAf4qkqf9WmFAcFWzQj358QvsTL4D5ZR1EAKjyro0GOYQbM0wasCrvcaq0J9w6vdZl4K9k3kqL6815l5yPaj+DF6u58SvwYqRXjJQrkI7RGUVTBsmJGtvfe8hgC0Tyt2eKRlsiJgsMKkuWxaNuehgi1PLQSfvwu2ylQ==</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>

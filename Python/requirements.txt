@@ -1,0 +1,32 @@
+openpyxl # 基本库
+pyyaml
+
+flask # 网络服务器
+flask-cors
+waitress
+asyncio
+python-multipart
+fastapi
+uvicorn
+pydantic
+PyPDF2
+PyMuPDF
+
+numpy # 张量处理
+pandas
+
+matplotlib # 图像处理
+seaborn
+opencv-python
+pillow
+
+scikit-learn # 机器学习
+scikit-image
+scipy
+tqdm
+joblib
+
+jupyter # Jupyter Notebook
+
+redis # 数据库驱动
+psycopg2_binary

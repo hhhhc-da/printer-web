@@ -1,0 +1,12 @@
+redis:
+  host: localhost
+  port: 6379
+  db: 0
+  pwd: "123456"
+
+pgsql:
+  host: localhost
+  port: 5432
+  db: Service
+  usr: postgres
+  pwd: "123456"
