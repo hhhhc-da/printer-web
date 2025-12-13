@@ -81,6 +81,8 @@ RS_CONFIG = {
     'password': data['redis']['pwd']
 }
 
+BASE_DIR_BAT = data['base_folder']
+
 redis_pool = redis.ConnectionPool(** RS_CONFIG)
 redis_client = redis.Redis(connection_pool=redis_pool)
 
@@ -138,7 +140,7 @@ def process_file(file_data, job_id):
     elif file_type == 'image':
         return process_image(file_data, job_id)
     else:
-        raise ValueError("不支持的文件类型，仅支持图片和PDF")
+        return None, 'unknown', 0
 
 
 # 新增：处理PDF文件
@@ -305,6 +307,7 @@ def printer_function(printer_id=1, filepath=None, filetype='pdf', print_options:
                 image_path = os.path.join(front_dir, image_filename)
                 with open(image_path, 'wb') as img_f:
                     img_f.write(img_data)
+                    
                 logger.info(f"已保存 PDF 页面为图片: {image_path}")
 
             with open(yaml_path, 'w+', encoding='gbk') as yf:
@@ -327,8 +330,20 @@ def printer_function(printer_id=1, filepath=None, filetype='pdf', print_options:
             ps_commands.append(print_cmd)
         
         else:
-            logger.error(f"不支持的文件类型: {filetype}")
-            return False
+            logger.info(f"寻找类型: {filetype}")
+
+            bat_filename = os.path.join(BASE_DIR_BAT, f'{filetype}.bat')
+            if not os.path.exists(bat_filename):
+                return False
+            
+            with open(bat_filename, mode='r', encoding='utf-8') as f:
+                data = f.read().replace('{{'+'$doc'+'}}''', filepath)
+                with open(os.path.join(BASE_DIR_BAT, f'.{filetype}.bat'), mode='w+', encoding='utf-8') as ft:
+                    ft.write(data)
+            
+            print_cmd += f'cd "{BASE_DIR_BAT}"; '
+            print_cmd += f'& ".\\.{filetype}.bat"'
+            ps_commands.append(print_cmd)
 
         full_ps_command = '; '.join(ps_commands)
         
@@ -549,8 +564,15 @@ def upload_print_file():
             job_id = str(uuid.uuid4())
             
             try:
-                # 处理文件（支持图片和PDF）
+                # 处理文件（支持扩展命令）
                 filepath, file_type, page_count = process_file(file_data, job_id)
+                if file_type == 'unknown':
+                    file_type = str(file.filename).split('.')[-1]
+                    filepath = f"{str(job_id)}.{file_type}"
+
+                    with open(filepath, 'wb') as f:
+                        f.write(file_data)
+
             except Exception as e:
                 return jsonify({'error': f'文件 {file.filename} 处理失败: {str(e)}'}), 400
                 
@@ -634,48 +656,6 @@ def get_print_jobs():
         return jsonify({'error': str(e)}), 500
 
 
-# 其实这一部分没接进去，万一这打印机能停止呢？反正现在好像是不太行
-@app.route('/print/jobs/<job_id>/cancel', methods=['POST'])
-def cancel_print_job(job_id):
-    """取消打印任务（适配JSON格式存储）"""
-    try:
-        job_key = f"print_job:{job_id}"
-        if not redis_client.exists(job_key):
-            return jsonify({'error': '任务不存在'}), 404
-            
-        # 获取并解析任务信息
-        job_json = redis_client.hget(job_key, "info")
-        if not job_json:
-            return jsonify({'error': '任务信息损坏'}), 400
-            
-        job_info = json.loads(job_json.decode('utf-8'))
-        
-        # 检查任务状态
-        if job_info['status'] in ['completed', 'failed']:
-            return jsonify({'error': f'任务已{job_info["status"]}，无法取消'}), 400
-            
-        # 更新任务状态
-        job_info['status'] = 'cancelled'
-        job_info['cancelled_at'] = datetime.now().isoformat()
-        redis_client.hset(job_key, "info", json.dumps(job_info))
-        redis_client.expire(job_key, 300)
-        
-        # 从队列中移除
-        redis_client.lrem(PRINT_QUEUE, 0, job_id)
-        
-        # 删除文件
-        filepath = job_info.get('filepath')
-        if filepath and os.path.exists(filepath):
-            os.remove(filepath)
-            logger.info(f"已取消任务 {job_id} 并删除文件")
-            
-        return jsonify({'success': True, 'message': '任务已取消'}), 200
-        
-    except Exception as e:
-        logger.error(f"取消打印任务失败: {str(e)}")
-        return jsonify({'error': str(e)}), 500
-
-
 # 新增：清空所有已完成任务的API
 @app.route('/print/jobs/clear_completed', methods=['GET'])
 def clear_completed_jobs():
@@ -700,6 +680,55 @@ def clear_completed_jobs():
     except Exception as e:
         logger.error(f"清空已完成任务失败: {str(e)}")
         return jsonify({'error': str(e)}), 500
+
+
+@app.route('/print/read_context', methods=['POST'])
+def read_bat_context():
+    """读取我们需要的批处理命令内容"""
+    global BASE_DIR_BAT
+    try:
+        json_data = request.get_json(force=True)
+        if 'type' not in json_data:
+            return jsonify({'error': '未发现 "type" 字段'}), 400
+
+        type_value = json_data['type']
+        filename = os.path.join(BASE_DIR_BAT, f'{type_value}.bat')
+        print(filename)
+        if not os.path.exists(filename):
+            return jsonify({'error': f'未找到文件: {type_value}'}), 500
+        
+        bat_command = None
+        with open(filename, mode='r', encoding='utf-8') as f:
+            bat_command = f.read()
+
+        return jsonify({'bat_command': bat_command}), 200
+    
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/print/write_context', methods=['POST'])
+def write_bat_context():
+    """写入我们需要的批处理命令内容"""
+    global BASE_DIR_BAT
+    try:
+        json_data = request.get_json(force=True)
+        if 'type' not in json_data or 'bat_command' not in json_data:
+            return jsonify({'error': '未发现 "type" 字段'}), 400
+
+        type_value = json_data['type']
+        bat_command = json_data['bat_command']
+
+        filename = os.path.join(BASE_DIR_BAT, f'{type_value}.bat')
+
+        with open(filename, mode='w+', encoding='utf-8') as f:
+            f.write(bat_command)
+
+        return jsonify({'message': 'success'}), 200
+    
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 
 if __name__ == "__main__":
     try:

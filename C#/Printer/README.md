@@ -1,1 +1,1 @@
-Printer.exe --printer "Pantum P2200NW Series" --filename "C:\Users\Administrator\Downloads\aaa.pdf" --filetype pdf --copies 1 --duplex 1 --route 1"
+Printer.exe --printer "Pantum P2200NW Series" --filename "C:\Users\Administrator\Downloads\≤‚ ‘.pdf" --filetype pdf --copies 1 --duplex 1 --route 1"

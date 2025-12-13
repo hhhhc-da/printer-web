@@ -2,11 +2,13 @@ redis:
   host: localhost
   port: 6379
   db: 0
-  pwd: "123456"
+  pwd: vodet101.
 
 pgsql:
   host: localhost
   port: 5432
   db: Service
   usr: postgres
-  pwd: "123456"
+  pwd: vodet101.
+
+base_folder: D:\Code\Bat

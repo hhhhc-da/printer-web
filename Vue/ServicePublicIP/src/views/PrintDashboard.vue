@@ -4,9 +4,6 @@
             <h1 class="dashboard-title">EThink 社团专用打印页面</h1>
             <div class="user-info">
                 <span class="username">{{ username }}</span>
-                <button class="logout-btn btn btn-outline btn-sm" @click="handleOther">
-                    😄 自定义打印
-                </button class = "">
                 <button class="logout-btn btn btn-outline btn-sm" @click="handleLogout">
                     <svg class="logout-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -456,10 +453,6 @@ const fetchPrinters = async () => {
     }
 };
 
- const handleOther = () => {
-    router.push("./Present")
-}
-
 // 获取当前打印任务
 const fetchActiveJobs = async () => {
     isRefreshingJobs.value = true;
@@ -488,7 +481,8 @@ const ClearActiveJobs = () => {
 const handleFilesSelected = async (files) => {
     for (const file of files) {
         if (!isValidFileType(file)) {
-            ElMessage.warning(`检测到 "${file.name}" 格式，请谨慎操作`);
+            ElMessage.warning(`文件 "${file.name}" 格式不支持，已跳过。`);
+            continue;
         }
 
         if (selectedFiles.value.some(f => f.name === file.name && f.size === file.size)) {

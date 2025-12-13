@@ -142,4 +142,4 @@ dist/
 __pycache__
 *.pyc
 
-.
+config.yaml
