@@ -310,7 +310,7 @@ const handleLogout = () => {
 
 .command-textarea {
     width: 100%;
-    min-height: 500px;
+    min-height: 350px;
     padding: 15px;
     font-family: 'Courier New', Courier, monospace;
     font-size: 14px;

@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { isLoggedIn } from '../utils/auth'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
+import Present from '../views/Present.vue'
 import PrintDashboard from '../views/PrintDashboard.vue'
 
 const routes = [
@@ -26,6 +27,12 @@ const routes = [
   {
     path: '/:pathMatch(.*)*',
     redirect: '/'
+  },
+  {
+    path: '/present',
+    name: 'Present',
+    component: Present,
+    meta: { requiresAuth: true }
   }
 ]
 
